@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>부모-자녀 숙제 앱</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>부모-자녀 숙제 앱</h1>
+        <p>매일 수학, 단어, 질문을 보내고 기록을 확인하세요.</p>
+        <p id="sync-status" class="hint">동기화: 로컬 모드</p>
+      </header>
+
+      <nav class="tabs">
+        <button id="tab-parent" class="tab-button active" type="button">부모 화면</button>
+        <button id="tab-child" class="tab-button" type="button">아이 화면</button>
+      </nav>
+
+      <section id="parent-view" class="view active">
+        <div class="card">
+          <h2>오늘 수학 문제 만들기</h2>
+          <form id="math-form">
+            <div class="grid two">
+              <label>
+                첫 번째 숫자
+                <input id="num-a" type="number" required />
+              </label>
+              <label>
+                두 번째 숫자
+                <input id="num-b" type="number" required />
+              </label>
+            </div>
+            <label>
+              연산
+              <select id="operator">
+                <option value="+">더하기 (+)</option>
+                <option value="-">빼기 (-)</option>
+              </select>
+            </label>
+            <button type="submit">문제 추가</button>
+          </form>
+          <div id="parent-math-list" class="parent-math-list"></div>
+          <button id="clear-math-btn" type="button">오늘 수학 문제 전체 삭제</button>
+          <p id="math-save-msg" class="hint"></p>
+        </div>
+
+        <div class="card">
+          <h2>오늘 영어 메모 보내기</h2>
+          <label>
+            메모 입력 (쉼표 또는 줄바꿈 구분)
+            <textarea id="word-input" rows="3" placeholder="apple&#10;banana&#10;cat"></textarea>
+          </label>
+          <div class="grid two">
+            <button id="save-words-btn" type="button">메모 저장</button>
+            <button id="clear-words-btn" type="button">영어 메모 삭제</button>
+          </div>
+          <p id="word-save-msg" class="hint"></p>
+        </div>
+
+        <div class="card">
+          <h2>아들에게 질문 보내기</h2>
+          <label>
+            질문
+            <textarea id="parent-question" rows="3" placeholder="오늘 학교에서 가장 재미있었던 일은?"></textarea>
+          </label>
+          <button id="save-question-btn" type="button">질문 저장</button>
+          <p id="question-save-msg" class="hint"></p>
+        </div>
+
+        <div class="card">
+          <h2>오늘 답안 확인</h2>
+          <div id="review-area"></div>
+          <div class="grid two">
+            <button id="clear-math-answers-btn" type="button">수학 제출 답 삭제</button>
+            <button id="clear-question-answer-btn" type="button">질문 답변 삭제</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="child-view" class="view">
+        <div class="card">
+          <h2>오늘 수학 숙제</h2>
+          <div id="math-task-text" class="math-task-text">아직 수학 숙제가 없습니다.</div>
+          <button id="submit-math-btn" type="button">수학 답 전체 제출</button>
+          <p id="child-math-msg" class="hint"></p>
+        </div>
+
+        <div class="card">
+          <h2>오늘 영어 단어</h2>
+          <ul id="word-list"></ul>
+        </div>
+
+        <div class="card">
+          <h2>아빠 질문</h2>
+          <p id="question-text">아직 질문이 없습니다.</p>
+          <label>
+            내 답변
+            <textarea id="child-question-answer" rows="3"></textarea>
+          </label>
+          <button id="submit-question-btn" type="button">답변 제출</button>
+          <p id="child-question-msg" class="hint"></p>
+        </div>
+      </section>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="./firebase-config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
