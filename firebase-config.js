@@ -12,3 +12,6 @@ apiKey: "AIzaSyCz7Lk2gWeRvEDbAPNz2KDhAkXC0EwpVmE",
 
 // 가족별로 공유 방을 나누고 싶다면 값을 바꾸세요.
 window.FIREBASE_ROOM_KEY = "family-room-1";
+
+// 부모 전용 모드(?mode=parent)에서 사용할 비밀번호
+window.PARENT_PIN = "1234";

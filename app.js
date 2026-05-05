@@ -1,5 +1,9 @@
 const STORAGE_KEY = "homeworkAppData";
 const today = new Date().toISOString().slice(0, 10);
+const MODE = new URLSearchParams(window.location.search).get("mode");
+const CHILD_ONLY_MODE = MODE === "child";
+const PARENT_ONLY_MODE = MODE === "parent";
+let forceChildLock = false;
 
 const defaultData = {
   date: today,
@@ -125,6 +129,28 @@ function setupTabs() {
 
   parentBtn.addEventListener("click", () => activate("parent"));
   childBtn.addEventListener("click", () => activate("child"));
+
+  if (CHILD_ONLY_MODE || forceChildLock) {
+    activate("child");
+    parentBtn.style.display = "none";
+    childBtn.textContent = "아이 화면(잠금)";
+    childBtn.disabled = true;
+    childBtn.style.opacity = "1";
+    childBtn.style.cursor = "default";
+    updateSyncStatus("아이 전용 모드");
+  }
+}
+
+function guardParentMode() {
+  if (!PARENT_ONLY_MODE) return;
+  const parentPin = window.PARENT_PIN || "1234";
+  const input = window.prompt("부모 비밀번호를 입력하세요", "");
+  if (input === parentPin) {
+    updateSyncStatus("부모 전용 모드");
+    return;
+  }
+  forceChildLock = true;
+  updateSyncStatus("비밀번호 오류: 아이 화면으로 전환됨");
 }
 
 function renderMathTask() {
@@ -395,6 +421,7 @@ function renderAll() {
 }
 
 async function init() {
+  guardParentMode();
   await initFirebaseSync();
   setupTabs();
   bindParentActions();

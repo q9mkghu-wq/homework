@@ -62,3 +62,10 @@ git push -u origin main
 
 - 상단에 `동기화: Firebase 연결됨` 표시되면 정상
 - 한 기기에서 문제 추가 후 다른 기기 새로고침 없이 반영되면 성공
+
+## 5) 부모/아이 전용 접속 링크
+
+- 아이 전용 링크: `https://.../?mode=child`
+- 부모 전용 링크: `https://.../?mode=parent`
+  - 부모 전용 링크는 비밀번호 입력창이 뜹니다.
+  - 비밀번호는 `firebase-config.js`의 `window.PARENT_PIN` 값입니다.
